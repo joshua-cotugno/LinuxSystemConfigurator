@@ -5,8 +5,15 @@ import platform
 import argparse
 
 def get_package_manager():
-    distro_info = distro.linux_distribution(full_distribution_name=False)
-    distro_name = distro_info[0].lower()
+    try:
+        distro_info = subprocess.run(['lsb_release', '-i', '-r'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        output = distro_info.stdout.strip().split('\n')
+        distro_name = output[0].split(':')[1].strip().lower()
+        distro_version = output[1].split(':')[1].strip()
+    except Exception as e:
+        print(f"\033[91mError: Failed to determine the Linux distribution. {e}\033[0m")
+        return None
+
     if distro_name in ["ubuntu", "debian"]:
         return "apt"
     elif distro_name in ["fedora", "centos", "rhel"]:
@@ -14,6 +21,7 @@ def get_package_manager():
     elif distro_name in ["arch"]:
         return "pacman"
     else:
+        print(f"\033[93mWarning: Unsupported Linux distribution ({distro_name} {distro_version}). Trying snap or flatpak...\033[0m")
         return None
 
 def install_package(package_info, package_manager):
