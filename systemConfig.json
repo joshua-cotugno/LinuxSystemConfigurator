@@ -41,13 +41,15 @@
                 },
                 "Barrier": {
                     "installation_method": "flatpak",
-                    "package_name":"barrier"
+                    "package_name": "barrier"
                 }
             },
-            "ubuntu": [
-                "grub-customizer",
-                "nala"
-            ],
+            "ubuntu": {
+                "grub-customizer": {},
+                "nala": {},
+                "chrome-gnome-shell": {},
+                "gnome-tweaks-": {}
+            },
             "debian": [],
             "raspi": [],
             "arch": [],
@@ -79,6 +81,15 @@
                 },
                 "other-themes": {}
             }
+        },
+        "extensions": {
+            "Dash to Dock": "https://extensions.gnome.org/extension/307/dash-to-dock/",
+            "Removable Drive Menu": "https://extensions.gnome.org/extension/7/removable-drive-menu/",
+            "User Themes": "https://extensions.gnome.org/extension/19/user-themes/",
+            "GSConnect": "https://extensions.gnome.org/extension/1319/gsconnect/",
+            "Clipboard Indicator": "https://extensions.gnome.org/extension/779/clipboard-indicator/",
+            "Workspace Indicator": "https://extensions.gnome.org/extension/3952/workspace-indicator/",
+            "Maximise To Empty Workspace": "https://extensions.gnome.org/extension/3100/maximize-to-empty-workspace/"
         }
     }
 }
