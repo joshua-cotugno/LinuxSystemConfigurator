@@ -72,15 +72,28 @@ def install_themes(theme_info):
     else:
         print(f"\033[91mNo theme available for {desktop_env}. Skipping theme installation.\033[0m")
 
+def check_and_install_curl():
+    if subprocess.run(["which", "curl"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode != 0:
+        package_manager = get_package_manager()
+        if package_manager:
+            print("\033[93mInstalling curl...\033[0m")
+            subprocess.run(["sudo", package_manager, "install", "curl"])
+        else:
+            print("\033[91mCannot install curl automatically. Please install curl manually and re-run the script.\033[0m")
+            exit(1)
+
 def main():
     parser = argparse.ArgumentParser(description="Install packages and themes based on a JSON configuration file.")
     parser.add_argument("git_repo", type=str, help="Git repository URL")
     args = parser.parse_args()
 
+    # Check and install curl if not present
+    check_and_install_curl()
+
     json_url = f"{args.git_repo.rstrip('/')}/raw/main/systemConfig.json"
     try:
         # Download the JSON file using curl
-        subprocess.run(["curl", "-o", "systemConfig.json", json_url])
+        subprocess.run(["curl", "-o", "systemConfig.json", json_url], check=True)
         with open("systemConfig.json", "r") as file:
             config_data = json.load(file)
 

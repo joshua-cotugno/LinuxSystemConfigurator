@@ -19,7 +19,7 @@ cd LinuxSystemConfigurator
 2. Run the script, providing the Git repository URL as an argument:
 
 ```shell
-python3 script.py https://github.com/joshua-cotugno/LinuxSystemConfigurator
+python3 install.py https://github.com/joshua-cotugno/LinuxSystemConfigurator
 ```
 
 ## Configuration
