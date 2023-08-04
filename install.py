@@ -5,12 +5,13 @@ import platform
 import argparse
 
 def get_package_manager():
-    distro = platform.linux_distribution(full_distribution_name=False)[0].lower()
-    if distro in ["ubuntu", "debian"]:
+    distro_info = distro.linux_distribution(full_distribution_name=False)
+    distro_name = distro_info[0].lower()
+    if distro_name in ["ubuntu", "debian"]:
         return "apt"
-    elif distro in ["fedora", "centos", "rhel"]:
+    elif distro_name in ["fedora", "centos", "rhel"]:
         return "dnf"
-    elif distro in ["arch"]:
+    elif distro_name in ["arch"]:
         return "pacman"
     else:
         return None
