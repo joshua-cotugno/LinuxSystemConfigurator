@@ -3,7 +3,6 @@ import json
 import subprocess
 import platform
 import argparse
-from colorama import Fore, Style
 
 def get_package_manager():
     distro = platform.linux_distribution(full_distribution_name=False)[0].lower()
@@ -20,7 +19,7 @@ def install_package(package_info, package_manager):
     if "installation_method" in package_info:
         if package_info["installation_method"] == "package-manager":
             package_name = package_info["package-name"]
-            print(f"{Fore.GREEN}Installing package: {package_name}{Style.RESET_ALL}")
+            print(f"\033[92mInstalling package: {package_name}\033[0m")
             if package_manager == "apt":
                 subprocess.run(["sudo", package_manager, "install", package_name])
             elif package_manager == "dnf":
@@ -28,42 +27,50 @@ def install_package(package_info, package_manager):
             elif package_manager == "pacman":
                 subprocess.run(["sudo", package_manager, "-S", package_name])
             else:
-                print(f"{Fore.YELLOW}Warning: Unsupported package manager. Trying snap or flatpak...{Style.RESET_ALL}")
+                print("\033[93mWarning: Unsupported package manager. Trying snap or flatpak...\033[0m")
                 try_alternative_installation(package_info)
 
         elif package_info["installation_method"] == "script":
             for script in package_info["script"]:
-                print(f"{Fore.GREEN}Running script: {script}{Style.RESET_ALL}")
+                print(f"\033[92mRunning script: {script}\033[0m")
                 subprocess.run(["bash", "-c", script])
 
 def try_alternative_installation(package_info):
     # Try using snap as an alternative
     if "snap" in package_info.get("alternate_installation_methods", {}):
         snap_package = package_info["alternate_installation_methods"]["snap"]
-        print(f"{Fore.GREEN}Trying Snap alternative: {snap_package}{Style.RESET_ALL}")
+        print(f"\033[92mTrying Snap alternative: {snap_package}\033[0m")
         subprocess.run(["sudo", "snap", "install", snap_package])
         return
 
     # Try using flatpak as an alternative
     if "flatpak" in package_info.get("alternate_installation_methods", {}):
         flatpak_package = package_info["alternate_installation_methods"]["flatpak"]
-        print(f"{Fore.GREEN}Trying Flatpak alternative: {flatpak_package}{Style.RESET_ALL}")
+        print(f"\033[92mTrying Flatpak alternative: {flatpak_package}\033[0m")
         subprocess.run(["flatpak", "install", flatpak_package])
         return
 
-    print(f"{Fore.RED}No alternative package manager found. Skipping installation.{Style.RESET_ALL}")
+    print("\033[91mNo alternative package manager found. Skipping installation.\033[0m")
 
 def install_themes(theme_info):
-    for theme_type, theme_data in theme_info.items():
+    desktop_env = os.environ.get("DESKTOP_SESSION", "").lower()
+    if not desktop_env:
+        print("\033[91mDesktop environment not detected. Skipping theme installation.\033[0m")
+        return
+
+    if desktop_env in theme_info:
+        theme_data = theme_info[desktop_env]
         git_repo = theme_data["git_repo"]
         installation_script = theme_data["installation_script"]
 
-        print(f"{Fore.CYAN}Cloning theme repository: {git_repo}{Style.RESET_ALL}")
+        print(f"\033[96mCloning theme repository: {git_repo}\033[0m")
         subprocess.run(["git", "clone", git_repo])
 
-        print(f"{Fore.CYAN}Installing {theme_type} theme{Style.RESET_ALL}")
+        print(f"\033[96mInstalling {desktop_env} theme\033[0m")
         for script in installation_script:
             subprocess.run(["bash", "-c", script], cwd=os.path.basename(git_repo))
+    else:
+        print(f"\033[91mNo theme available for {desktop_env}. Skipping theme installation.\033[0m")
 
 def main():
     parser = argparse.ArgumentParser(description="Install packages and themes based on a JSON configuration file.")
@@ -89,18 +96,18 @@ def main():
                         install_package(package_info, package_manager)
             else:
                 for package_name in package_data:
-                    print(f"{Fore.GREEN}Installing package: {package_name}{Style.RESET_ALL}")
+                    print(f"\033[92mInstalling package: {package_name}\033[0m")
                     if package_manager:
                         subprocess.run(["sudo", package_manager, "install", package_name])
                     else:
-                        print(f"{Fore.YELLOW}Warning: Unsupported package manager. Trying snap or flatpak...{Style.RESET_ALL}")
+                        print("\033[93mWarning: Unsupported package manager. Trying snap or flatpak...\033[0m")
                         try_alternative_installation(package_info)
 
         # Install themes
         install_themes(config_data["packages"]["themes"]["gnome"])
 
     except Exception as e:
-        print(f"{Fore.RED}An error occurred: {e}{Style.RESET_ALL}")
+        print(f"\033[91mAn error occurred: {e}\033[0m")
 
 if __name__ == "__main__":
     main()
