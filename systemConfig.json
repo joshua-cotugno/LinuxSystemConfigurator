@@ -89,7 +89,8 @@
             "GSConnect": "https://extensions.gnome.org/extension/1319/gsconnect/",
             "Clipboard Indicator": "https://extensions.gnome.org/extension/779/clipboard-indicator/",
             "Workspace Indicator": "https://extensions.gnome.org/extension/3952/workspace-indicator/",
-            "Maximise To Empty Workspace": "https://extensions.gnome.org/extension/3100/maximize-to-empty-workspace/"
+            "Maximise To Empty Workspace": "https://extensions.gnome.org/extension/3100/maximize-to-empty-workspace/",
+            "Search Light":"https://extensions.gnome.org/extension/5489/search-light/"
         }
     }
 }
