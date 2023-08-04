@@ -1,1 +1,38 @@
-
+{
+    "packages": {
+        "all": {
+            "git":{
+                "installation_method":"package-manager",
+                "package-name":"git"
+            },
+            "Visual Studio Code":{
+                "installation_method":"script",
+                "script":[
+                    "sudo apt install software-properties-common apt-transport-https wget -y",
+                    "wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -",
+                    "./installCode.sh",
+                    "sudo add-apt-repository 'deb [arch=$arch] https://packages.microsoft.com/repos/vscode stable main'"
+                ]
+            }
+        },
+        "ubuntu": [
+            "grub-customizer",
+            "nala"
+        ],
+        "debian": [],
+        "raspi": [],
+        "arch": [],
+        "fedora": []
+    },
+    "themes": {
+        "gnome": {
+            "main-theme": {
+                "git-repo": "https://github.com/vinceliuice/WhiteSur-gtk-theme.git",
+                "installation": [
+                    ""
+                ]
+            },
+            "icon-theme": {}
+        }
+    }
+}
