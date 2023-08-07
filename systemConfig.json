@@ -79,7 +79,14 @@
                         "sudo ./install-gnome-backgrounds.sh -t montery"
                     ]
                 },
-                "other-themes": {}
+                "other-themes": {
+                    "bashrc": {
+                        "git-repo":"",
+                        "installation_script": [
+                            "wget https://raw.githubusercontent/joshua-cotugno/LinuxSystemConfigurator/main/bashrc",
+                            "cp bashrc ~/.bashrc"
+                        ]
+                }
             }
         },
         "extensions": {
