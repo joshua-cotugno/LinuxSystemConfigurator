@@ -26,6 +26,10 @@
                     ],
                     "script": "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo",
                     "alternate_installation_methods": {}
+                },
+                "windows": {
+                    "command": "winget install --id Git.Git -e --source winget",
+                    "exe_url": "https://github.com/git-for-windows/git/releases/download/v2.42.0.windows.1/Git-2.42.0-64-bit.exe"
                 }
             },
             "all": {
@@ -50,10 +54,20 @@
                 "chrome-gnome-shell": {},
                 "gnome-tweaks-": {}
             },
-            "debian": [],
-            "raspi": [],
-            "arch": [],
-            "fedora": []
+            "debian": {},
+            "raspi": {},
+            "arch": {},
+            "fedora": {},
+            "windows": {
+                "Visual Studio Code": {
+                    "command": "winget install --id Microsoft.VisualStudioCode -e --source winget",
+                    "exe_url": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"
+                },
+                "Musescore": {
+                    "command": "",
+                    "exe_url": "https://pub-c7a32e5b5d834ec9aeef400105452a42.r2.dev/Muse_Hub.exe"
+                }
+            }
         },
         "themes": {
             "gnome": {
@@ -81,23 +95,24 @@
                 },
                 "other-themes": {
                     "bashrc": {
-                        "git-repo":"",
+                        "git-repo": "",
                         "installation_script": [
                             "wget https://raw.githubusercontent/joshua-cotugno/LinuxSystemConfigurator/main/bashrc",
                             "cp bashrc ~/.bashrc"
                         ]
+                    }
                 }
+            },
+            "extensions": {
+                "Dash to Dock": "https://extensions.gnome.org/extension/307/dash-to-dock/",
+                "Removable Drive Menu": "https://extensions.gnome.org/extension/7/removable-drive-menu/",
+                "User Themes": "https://extensions.gnome.org/extension/19/user-themes/",
+                "GSConnect": "https://extensions.gnome.org/extension/1319/gsconnect/",
+                "Clipboard Indicator": "https://extensions.gnome.org/extension/779/clipboard-indicator/",
+                "Workspace Indicator": "https://extensions.gnome.org/extension/3952/workspace-indicator/",
+                "Maximise To Empty Workspace": "https://extensions.gnome.org/extension/3100/maximize-to-empty-workspace/",
+                "Search Light": "https://extensions.gnome.org/extension/5489/search-light/"
             }
-        },
-        "extensions": {
-            "Dash to Dock": "https://extensions.gnome.org/extension/307/dash-to-dock/",
-            "Removable Drive Menu": "https://extensions.gnome.org/extension/7/removable-drive-menu/",
-            "User Themes": "https://extensions.gnome.org/extension/19/user-themes/",
-            "GSConnect": "https://extensions.gnome.org/extension/1319/gsconnect/",
-            "Clipboard Indicator": "https://extensions.gnome.org/extension/779/clipboard-indicator/",
-            "Workspace Indicator": "https://extensions.gnome.org/extension/3952/workspace-indicator/",
-            "Maximise To Empty Workspace": "https://extensions.gnome.org/extension/3100/maximize-to-empty-workspace/",
-            "Search Light":"https://extensions.gnome.org/extension/5489/search-light/"
         }
     }
 }
